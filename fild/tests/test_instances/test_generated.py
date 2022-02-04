@@ -1,6 +1,6 @@
 import unittest
 
-from tests.data import Base, ComposeBase, Mix
+from fild.tests.data import Base, ComposeBase, Mix
 
 
 class TestGenerated(unittest.TestCase):

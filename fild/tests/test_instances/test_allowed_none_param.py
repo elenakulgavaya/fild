@@ -1,6 +1,6 @@
 import unittest
 
-from tests.data import Mix
+from fild.tests.data import Mix
 
 
 class TestAllowNoneParam(unittest.TestCase):

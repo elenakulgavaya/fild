@@ -2,7 +2,7 @@ import copy
 
 from collections import Callable, Mapping, MutableSequence
 
-from process.common import is_callable_with_strict_args
+from fild.process.common import is_callable_with_strict_args
 
 
 def merge_with_updates(initial_dict, updates, extend_only=False,

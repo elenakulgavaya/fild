@@ -1,6 +1,6 @@
 import unittest
 
-from tests.data import AllowedNone, ComposeOptional, Mix, Optional
+from fild.tests.data import AllowedNone, ComposeOptional, Mix, Optional
 
 
 class TestGenerate(unittest.TestCase):

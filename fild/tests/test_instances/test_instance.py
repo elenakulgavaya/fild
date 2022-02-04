@@ -1,6 +1,6 @@
 import unittest
 
-from tests.data import Base, ComposeBase, ComposeOptional, Mix, Optional
+from fild.tests.data import Base, ComposeBase, ComposeOptional, Mix, Optional
 
 
 class TestInstance(unittest.TestCase):
