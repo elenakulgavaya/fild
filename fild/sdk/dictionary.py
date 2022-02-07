@@ -9,7 +9,7 @@ class Dictionary(Field):
         self._is_none = False
         self.save_kwargs(locals())
         self.is_full = is_full
-        super(Dictionary, self).__init__(name, required, allow_none)
+        super().__init__(name, required, allow_none)
 
     def _get_field_names(self):
         result = []
@@ -35,6 +35,10 @@ class Dictionary(Field):
                 return True
 
         return False
+
+    @generated.setter
+    def generated(self, generated):
+        self._generated = generated
 
     @property
     def value(self):
@@ -85,7 +89,7 @@ class Dictionary(Field):
             if field.name == name:
                 return field_name, field
 
-        raise AttributeError('No attribute with name {}'.format(name))
+        raise AttributeError(f'No attribute with name {name}')
 
     def _set_field_value(self, field_name, value):
         if value is None:
@@ -100,7 +104,7 @@ class Dictionary(Field):
 
         if isinstance(value, dict):
             new_value = field.with_values(value)
-            new_value._generated = True
+            new_value.generated = True
             setattr(self, field_name, new_value)
 
         elif isinstance(value, list) and isinstance(field, Array):
@@ -118,16 +122,16 @@ class Dictionary(Field):
         else:
             setattr(self, field_name, value)
 
-    def _generate(self, is_full=False, with_data=True, required=True,
-                  use_default=None):
+    def _generate(self, is_full=True, with_data=True, required=True,
+                  use_default=True):
         self._generated = with_data
 
         if self.allow_none:
             if not is_full:
                 self._is_none = True
                 return  # Do not generate fields if None is allowed
-            else:
-                self._is_none = False
+
+            self._is_none = False
 
         if not required and not is_full:
             with_data = False
@@ -153,7 +157,7 @@ class Dictionary(Field):
         if with_data:
             self.generate_custom()
 
-    def generate(self, is_full=False):
+    def generate(self, is_full=False):  # pylint: disable=arguments-renamed
         self._generate(is_full=is_full)
 
     def __setattr__(self, key, value):

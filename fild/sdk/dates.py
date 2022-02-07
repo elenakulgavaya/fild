@@ -8,7 +8,7 @@ import pytz
 DATE_TIME_PATTERN = '%Y-%m-%dT%H:%M:%SZ'
 
 
-class Pattern(object):
+class Pattern:
     DATE = '%Y-%m-%d'
     TIME = '%H:%M:%S'
     DATETIME = '%Y-%m-%d %H:%M:%S'

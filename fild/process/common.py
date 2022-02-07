@@ -1,5 +1,6 @@
-import collections
 import inspect
+
+from collections.abc import Mapping
 
 
 def filter_dict(function_or_value, dict_to_filter):
@@ -37,31 +38,36 @@ def filter_dict(function_or_value, dict_to_filter):
       {'b': 'test'}
 
     Embedded with extra by callable
-      >>> filter_dict(lambda x: 'a' in x, {'a': {'c': 'ba', 'd': 'tt'}, 'b': 'd'})
+      >>> filter_dict(
+      ...   lambda x: 'a' in x, {'a': {'c': 'ba', 'd': 'tt'}, 'b': 'd'})
       {'a': {'c': 'ba'}}
 
     Embedded mixed filter
-      >>> filter_dict(lambda x: bool(x), {'a': {'c': True, 'd': 0}, 'b': 'test', 'e': []})
+      >>> filter_dict(
+      ...   lambda x: bool(x), {'a': {'c': True, 'd': 0}, 'b': 'test', 'e': []}
+      ...   )
       {'a': {'c': True}, 'b': 'test'}
 
     """
     func = function_or_value
 
     if not callable(function_or_value):
-        def func(value):
+        def new_func(value):
             return value != function_or_value
+
+        func = new_func
 
     result = {}
 
-    for k, v in dict_to_filter.items():
-        if isinstance(v, collections.abc.Mapping):
-            v = filter_dict(func, v)
+    for key, value in dict_to_filter.items():
+        if isinstance(value, Mapping):
+            value = filter_dict(func, value)
 
-            if v:
-                result[k] = v
+            if value:
+                result[key] = value
 
-        elif func(v):
-            result[k] = v
+        elif func(value):
+            result[key] = value
 
     return result
 

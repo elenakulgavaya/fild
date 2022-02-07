@@ -1,7 +1,7 @@
 import unittest
 
 from fild.sdk.array import Array
-from fild.tests.data import Base, ComposeBase, Mix, Optional, TypeOne
+from tests.data import Base, ComposeBase, Mix, Optional, TypeOne
 
 
 class TestGenerated(unittest.TestCase):

@@ -30,7 +30,10 @@ class Field(metaclass=ABCMeta):
 
     @property
     def generated(self):
-        return (self.required and self.allow_none) or self._value is not None
+        if self._value is None:
+            return self.required and self.allow_none
+
+        return True
 
     @property
     def value(self):

@@ -138,4 +138,3 @@ def generate_float(i_len=None, f_len=None, integer_allowed=True, max_val=None,
         f_part += random.randint(1, 9)
 
     return float(i_part + f_part / decimal.Decimal(f_max))
-

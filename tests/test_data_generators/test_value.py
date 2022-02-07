@@ -1,7 +1,7 @@
 import unittest
 
 from fild.sdk.array import Array
-from fild.tests.data import AllowedNone, Mix, Optional
+from tests.data import AllowedNone, Mix, Optional
 
 
 class TestValue(unittest.TestCase):
