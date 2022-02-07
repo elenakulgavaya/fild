@@ -8,7 +8,7 @@ from fild.sdk.field import Field
 
 class TypeOne(Field):
     def generate_value(self):
-        return u''.join(random.sample(string.ascii_letters + string.digits, 6))
+        return ''.join(random.sample(string.ascii_letters + string.digits, 6))
 
 
 class TypeTwo(Field):

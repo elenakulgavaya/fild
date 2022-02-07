@@ -1,6 +1,6 @@
 import copy
 
-from collections import Callable, Mapping, MutableSequence
+from collections.abc import Callable, Mapping, MutableSequence
 
 from fild.process.common import is_callable_with_strict_args
 
@@ -43,11 +43,16 @@ def merge_with_updates(initial_dict, updates, extend_only=False,
       {1: [{2: 'two'}]}
 
     Update value in list:
-      >>> merge_with_updates({1: [{2: 2, 3: 3}]}, {1: [{2: 'two'}]}, merge_lists=True)
+      >>> merge_with_updates(
+      ...   {1: [{2: 2, 3: 3}]}, {1: [{2: 'two'}]},
+      ...   merge_lists=True)
       {1: [{2: 'two', 3: 3}]}
 
     Update value in inner list:
-      >>> merge_with_updates({1: {2: [{3: [{4: 4}]}]}}, {1: {2: [{3: [{4: 'four'}]}]}}, merge_lists=True)
+      >>> merge_with_updates(
+      ...   {1: {2: [{3: [{4: 4}]}]}},
+      ...   {1: {2: [{3: [{4: 'four'}]}]}},
+      ...   merge_lists=True)
       {1: {2: [{3: [{4: 'four'}]}]}}
 
     Extend dict:
@@ -98,7 +103,8 @@ def merge_with_updates(initial_dict, updates, extend_only=False,
       ValueError: Can not overwrite "2" value in extend mode
 
     Do not override list value in extend mode:
-      >>> merge_with_updates({1: [{2: 2}]}, {1: [{2: 0}]}, merge_lists=True, extend_only=True)
+      >>> merge_with_updates(
+      ...   {1: [{2: 2}]}, {1: [{2: 0}]}, merge_lists=True, extend_only=True)
       Traceback (most recent call last):
           ...
       ValueError: Can not overwrite "2" value in extend mode
@@ -106,7 +112,7 @@ def merge_with_updates(initial_dict, updates, extend_only=False,
     initial_dict = initial_dict or {}
     initial_copy = copy.deepcopy(initial_dict)
 
-    for key, value in updates.values():
+    for key, value in updates.items():
         if isinstance(value, Mapping) and isinstance(initial_copy.get(key),
                                                      Mapping):
             initial_copy[key] = merge_with_updates(
@@ -139,7 +145,7 @@ def merge_with_updates(initial_dict, updates, extend_only=False,
 
 
 def dict_predicate(func=None, name=None):
-    class DictPredicate(object):
+    class DictPredicate:
         def __init__(self, callable_func):
             self.func = callable_func
 
@@ -194,7 +200,7 @@ def matches_pattern(initial_dict, pattern_dict):
     """
     result = True
 
-    for key, value in pattern_dict.values():
+    for key, value in pattern_dict.items():
         if result is False or key not in initial_dict:
             return False
 
@@ -240,10 +246,12 @@ def apply_modifier(initial_dict, modifier):
       >>> apply_modifier({'c': []}, {'c': [float]})
       {'c': []}
 
-      >>> apply_modifier({'c': [{'x': [1]}, {'y': 4}]}, {'c': [{'x': [float]}]})
+      >>> apply_modifier(
+      ...   {'c': [{'x': [1]}, {'y': 4}]}, {'c': [{'x': [float]}]})
       {'c': [{'x': [1.0]}, {'y': 4}]}
 
-      >>> apply_modifier({'c': [{'x': [1], 'y': 2}]}, {'c': [{'x': [float], 'y': float}]})
+      >>> apply_modifier(
+      ...   {'c': [{'x': [1], 'y': 2}]}, {'c': [{'x': [float], 'y': float}]})
       {'c': [{'x': [1.0], 'y': 2.0}]}
 
     """
@@ -267,7 +275,7 @@ def apply_modifier(initial_dict, modifier):
     if not isinstance(modifier, Mapping):
         raise ValueError('modifier is not dictionary nor callable')
 
-    for key, sub_modifier in modifier.values():
+    for key, sub_modifier in modifier.items():
         if key not in initial_copy:
             continue
 
@@ -287,16 +295,31 @@ def normalize(actual, expected, keys=None):
       >>> normalize({'a': [1, 2, 5, 6], 'b': 0}, {'a': [1, 3, 6 ], 'b': None})
       {'a': [1, 6, 2, 5], 'b': 0}
 
-      >>> normalize({'a': {'c': 'test', 'd': ['a', 1]}, 'b': 123}, {'a': {'d': ['b', 'c', 1]}})
+      >>> normalize(
+      ...   {'a': {'c': 'test', 'd': ['a', 1]}, 'b': 123},
+      ...   {'a': {'d': ['b', 'c', 1]}})
       {'a': {'c': 'test', 'd': [1, 'a']}, 'b': 123}
 
-      >>> normalize({'a': [{'id': 1, 'val': 'test'}, {'id': 2, 'val': 'test2'}]}, {'a': [{'id': 2}, {'id': 3}]})
+      >>> normalize(
+      ... {'a': [{'id': 1, 'val': 'test'}, {'id': 2, 'val': 'test2'}]},
+      ... {'a': [{'id': 2}, {'id': 3}]})
       {'a': [{'id': 2, 'val': 'test2'}, {'id': 1, 'val': 'test'}]}
 
-      >>> normalize({'a': [{'id': 1, 'val': 'test'}, {'id': 2, 'val': 'test2'}]}, {'a': [{'id': 4, 'val': 'test2'}, {'id': 5, 'val': 'v'}]}, keys=['fake', 'val'])
+      >>> normalize(
+      ...   {'a': [{'id': 1, 'val': 'test'}, {'id': 2, 'val': 'test2'}]},
+      ...   {'a': [{'id': 4, 'val': 'test2'}, {'id': 5, 'val': 'v'}]},
+      ...   keys=['fake', 'val'])
       {'a': [{'id': 2, 'val': 'test2'}, {'id': 1, 'val': 'test'}]}
 
-      >>> normalize({'a': [{'id': 'b1', 'b': [{'id': 2}, {'id': 1}]}, {'id': 'b0', 'b': [{'id': 3}, {'id': 4}]}]}, {'a': [{'id': 'b0', 'b': [{'id': 4}]}, {'id': 'b1', 'b': [{'id': 1}, {'id': 2}]}]})
+      >>> normalize(
+      ...   {'a': [
+      ...       {'id': 'b1', 'b': [{'id': 2}, {'id': 1}]},
+      ...       {'id': 'b0', 'b': [{'id': 3}, {'id': 4}]}
+      ...   ]},
+      ...   {'a': [
+      ...       {'id': 'b0', 'b': [{'id': 4}]},
+      ...       {'id': 'b1', 'b': [{'id': 1}, {'id': 2}]}
+      ...   ]})
       {'a': [{'id': 'b0', 'b': [{'id': 4}, {'id': 3}]}, {'id': 'b1', 'b': [{'id': 1}, {'id': 2}]}]}
     """
     keys = keys or []
@@ -311,13 +334,13 @@ def normalize(actual, expected, keys=None):
 
         return 'id'
 
-    def get_index(a, i, element_key='id'):
-        target = a
-        element = i
+    def get_index(tar, elem, element_key='id'):
+        target = tar
+        element = elem
 
-        if isinstance(i, dict):
-            target = [item.get(element_key) for item in a]
-            element = i.get(element_key)
+        if isinstance(elem, dict):
+            target = [item.get(element_key) for item in tar]
+            element = elem.get(element_key)
 
         if element not in target:
             return len(target)
@@ -327,13 +350,13 @@ def normalize(actual, expected, keys=None):
     initial = copy.deepcopy(actual)
 
     if isinstance(initial, list):
-        element_key = initial and find_key(initial[0]) or None
+        element_key = find_key(initial[0]) if initial else None
         initial = sorted(
             initial,
             key=lambda x: get_index(expected, x, element_key=element_key)
         )
         if len(initial) == len(expected):
-            for num, item in enumerate(initial):
+            for num, _ in enumerate(initial):
                 initial[num] = normalize(
                     initial[num], expected[num], keys=keys
                 )

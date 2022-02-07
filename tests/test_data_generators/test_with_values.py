@@ -1,6 +1,6 @@
 import unittest
 
-from fild.tests.data import Base, Mix, Optional
+from tests.data import Base, Mix, Optional
 
 
 class TestWithValues(unittest.TestCase):

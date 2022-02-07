@@ -18,7 +18,7 @@ class Int(Field):
         self.save_kwargs(locals())
         self.min_val = min_val or 0
         self.max_val = max_val or 9999
-        super(Int, self).__init__(
+        super().__init__(
             name=name, required=required, allow_none=allow_none,
             default=default
         )
@@ -40,7 +40,7 @@ class Float(Field):
         self.min_val = min_val
         self.max_val = max_val
         self.positive = positive
-        super(Float, self).__init__(
+        super().__init__(
             name=name, required=required, allow_none=allow_none,
             default=default
         )
@@ -89,7 +89,7 @@ class String(Field):
         self.min_len = min_len
         self.max_len = max_len
         self.fake_as = fake_as
-        super(String, self).__init__(
+        super().__init__(
             name=name, required=required, allow_none=allow_none,
             default=default
         )
@@ -107,7 +107,7 @@ class Enum(Field):
                  default=None, exclude=None):
         self.save_kwargs(locals())
         self.exclude = exclude or ()
-        super(Enum, self).__init__(
+        super().__init__(
             name=name, required=required, allow_none=allow_none,
             default=default
         )
@@ -152,11 +152,12 @@ class Raw(String):
     def __init__(self, name=None, required=True, allow_none=False):
         self.save_kwargs(locals())
         self.overrided_values = False
-        super(Raw, self).__init__(
+        self._value = None
+        super().__init__(
             name=name, required=required, allow_none=allow_none
         )
 
-    def generate_value(self, size=None, types=None, **kwargs):
+    def generate_value(self):
         return fakeable.FAKER.pydict(10, True, str)
 
     def with_values(self, values):
@@ -171,12 +172,14 @@ class Raw(String):
 
 
 class Uuid(Field):
-    def generate_value(self):
+    @staticmethod
+    def generate_value():
         return fakeable.FAKER.uuid4()
 
 
 class DateTime(Field):
-    def generate_value(self):
+    @staticmethod
+    def generate_value():
         return dates.generate_time()
 
     @property

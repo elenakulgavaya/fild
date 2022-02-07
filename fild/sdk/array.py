@@ -5,7 +5,7 @@ from fild.sdk.field import Field
 
 class Array(Field):
     def __init__(self, field, name=None, required=True, allow_none=False,
-                 is_full=False, is_optional=False, min_len=1, max_len=1):
+                 is_full=False, min_len=1, max_len=1):
         if not hasattr(self, '_kwargs'):
             self.save_kwargs(locals())
 
@@ -13,7 +13,8 @@ class Array(Field):
         self._field = field
         self.min_len = min_len
         self.max_len = max_len
-        super(Array, self).__init__(name, required, allow_none)
+        self._value = None
+        super().__init__(name, required, allow_none)
 
     @property
     def field(self):
@@ -42,13 +43,13 @@ class Array(Field):
 
     def _generate(self, is_full=False, with_data=True, required=True,
                   use_default=None):
-        # TODO duplicated entities, duplicated empty dicts
+        # Not processed: duplicated entities, duplicated empty dicts
         if with_data and (is_full or required):
             self._value = [self.field(is_full=is_full) for _ in range(
                 random.randint(self.min_len, self.max_len)
             )]
 
-    def generate(self, is_full=False):
+    def generate(self, is_full=False):  # pylint: disable=arguments-renamed
         self._generate(is_full=is_full)
 
     def __len__(self):
@@ -77,5 +78,5 @@ class Array(Field):
             self._value = _values
 
             return self
-        else:
-            return super(Array, self).with_values(values)
+
+        return super().with_values(values)
