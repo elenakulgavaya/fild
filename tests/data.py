@@ -1,9 +1,9 @@
 import random
 import string
 
-from fild.sdk.array import Array
-from fild.sdk.dictionary import Dictionary
-from fild.sdk.field import Field
+from src.fild.sdk.array import Array
+from src.fild.sdk.dictionary import Dictionary
+from src.fild.sdk.field import Field
 
 
 class TypeOne(Field):

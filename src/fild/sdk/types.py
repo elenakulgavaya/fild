@@ -1,10 +1,10 @@
 import decimal
 import random
 
-from fild.process import dictionary
 
-from fild.sdk import fakeable, dates
-from fild.sdk.field import Field
+from . import fakeable, dates
+from .field import Field
+from ..process import dictionary
 
 
 class Bool(Field):

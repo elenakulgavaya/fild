@@ -1,6 +1,6 @@
 import unittest
 
-from fild.sdk.array import Array
+from src.fild.sdk.array import Array
 from tests.data import AllowedNone, Mix, Optional
 
 

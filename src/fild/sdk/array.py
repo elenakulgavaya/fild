@@ -1,6 +1,6 @@
 import random
 
-from fild.sdk.field import Field
+from .field import Field
 
 
 class Array(Field):
