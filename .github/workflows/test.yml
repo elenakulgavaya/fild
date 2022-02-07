@@ -25,4 +25,4 @@ jobs:
         cd src/
         python -m doctest fild/process/common.py -v 
         python -m doctest fild/process/dictionary.py -v
-        python -m unittest -v
+        python -m unittest discover -s ../
