@@ -2,6 +2,7 @@
 ignore=LICENSE,
     pyproject.toml,
     README.md,
+    requirements.txt,
     setup.cfg
 ignore-paths=dist,
     fild.egg-info
