@@ -22,6 +22,7 @@ jobs:
         pip install -r requirements.txt
     - name: Running tests
       run: |
+        cd src/
         python -m doctest src/fild/process/common.py -v 
         python -m doctest src/fild/process/dictionary.py -v
         python -m unittest -v

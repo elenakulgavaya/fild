@@ -1,6 +1,6 @@
 import unittest
 
-from src.fild.sdk.array import Array
+from fild.sdk.array import Array
 from tests.data import Base, ComposeBase, Mix, Optional, TypeOne
 
 

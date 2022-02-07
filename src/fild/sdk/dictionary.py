@@ -1,5 +1,5 @@
-from .array import Array
-from .field import Field
+from fild.sdk.array import Array
+from fild.sdk.field import Field
 
 
 class Dictionary(Field):
