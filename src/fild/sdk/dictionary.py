@@ -104,7 +104,10 @@ class Dictionary(Field):
 
         if isinstance(value, dict):
             new_value = field.with_values(value)
-            new_value.generated = True
+
+            if isinstance(field, Dictionary):
+                new_value.generated = True
+
             setattr(self, field_name, new_value)
 
         elif isinstance(value, list) and isinstance(field, Array):
