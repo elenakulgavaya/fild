@@ -172,14 +172,12 @@ class Raw(String):
 
 
 class Uuid(Field):
-    @staticmethod
-    def generate_value():
+    def generate_value(self):
         return fakeable.FAKER.uuid4()
 
 
 class DateTime(Field):
-    @staticmethod
-    def generate_value():
+    def generate_value(self):
         return dates.generate_time()
 
     @property
