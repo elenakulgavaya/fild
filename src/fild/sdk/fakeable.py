@@ -106,7 +106,7 @@ def fake_string_attr(attr_name, min_len=None, max_len=None):
         if max_len and len(result) > max_len:
             result = result[:max_len]
 
-        return result
+        return str(result)
 
     return generate_string(min_len=min_len, max_len=max_len)
 

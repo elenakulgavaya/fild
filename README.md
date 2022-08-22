@@ -3,7 +3,7 @@
 FILD is a library for contract testing. FILD allows to store descriptive 
 structure of the API and use it further for generating test data based on Faker.
 
-The basic type for usage is Fild, any other types should inherit from.
+The basic type for usage is Field, any other types should inherit from.
 Field supports the description of the API parameter within the following:\
 `name`: key in json\
 `required`: identifies the necessity of presense of the 

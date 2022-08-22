@@ -83,7 +83,7 @@ class StringDecimal(Decimal):
 
 
 class String(Field):
-    def __init__(self, name=None, required=True, min_len=0,
+    def __init__(self, name=None, required=True, min_len=1,
                  max_len=None, allow_none=False, default=None, fake_as=None):
         self.save_kwargs(locals())
         self.min_len = min_len
