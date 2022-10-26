@@ -110,7 +110,7 @@ class Dictionary(Field):
 
             setattr(self, field_name, new_value)
 
-        elif isinstance(value, list) and isinstance(field, Array):
+        elif isinstance(value, (list, set)) and isinstance(field, Array):
             new_value = []
 
             for val in value:
