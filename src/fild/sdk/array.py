@@ -80,3 +80,19 @@ class Array(Field):
             return self
 
         return super().with_values(values)
+
+
+class Set(Array):
+    @property
+    def value(self):
+        if self._value is None:
+            return None
+
+        return {field.value for field in self._value}
+
+    @property
+    def full_value(self):
+        if self._value is None:
+            return []
+
+        return {field.full_value for field in self._value}
