@@ -1,4 +1,4 @@
-from .array import Array
+from .array import Array, Set
 from .field import Field
 from .dictionary import Dictionary
 from .types import (
