@@ -86,8 +86,8 @@ class TestWithValues(unittest.TestCase):
             {Base.StringField.name: 'name2', Base.IntField.name: 2},
         ]})
         self.assertEqual(entity.OptBaseArray.value, [
-            dict(string_field='name1', int_field=1),
-            dict(string_field='name2', int_field=2)
+            {"string_field": 'name1', "int_field": 1},
+            {"string_field": 'name2', "int_field": 2}
         ])
 
 

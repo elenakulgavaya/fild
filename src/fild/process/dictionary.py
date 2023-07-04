@@ -349,7 +349,7 @@ def normalize(actual, expected, keys=None):
 
     initial = copy.deepcopy(actual)
 
-    if isinstance(initial, list):
+    if isinstance(initial, list) and expected is not None:
         element_key = find_key(initial[0]) if initial else None
         initial = sorted(
             initial,
