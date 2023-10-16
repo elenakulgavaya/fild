@@ -177,8 +177,8 @@ class Dictionary(Field):
                     not isinstance(value, dict)):
                 try:
                     json.loads(value)
-                except json.JSONDecodeError:
-                    raise AttributeError('Assigning entity to primitive')
+                except json.JSONDecodeError as ex:
+                    raise AttributeError('Assigning entity to primitive', ex)
 
             current_value.with_values(value)
             object.__setattr__(self, key, current_value)
