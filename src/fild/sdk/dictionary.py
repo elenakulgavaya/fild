@@ -1,3 +1,5 @@
+import json
+
 from fild.sdk.array import Array
 from fild.sdk.field import Field
 
@@ -110,7 +112,7 @@ class Dictionary(Field):
 
             setattr(self, field_name, new_value)
 
-        elif isinstance(value, (list, set)) and isinstance(field, Array):
+        elif isinstance(value, list) and isinstance(field, Array):
             new_value = []
 
             for val in value:
@@ -171,8 +173,14 @@ class Dictionary(Field):
 
         if (isinstance(current_value, Field) and
                 not isinstance(value, Field)):
-            if isinstance(current_value, Dictionary):
-                raise AttributeError('Assigning entity to primitive')
+            if (isinstance(current_value, Dictionary) and
+                    not isinstance(value, dict)):
+                try:
+                    json.loads(value)
+                except json.JSONDecodeError as ex:
+                    raise AttributeError(
+                        'Assigning entity to primitive'
+                    ) from ex
 
             current_value.with_values(value)
             object.__setattr__(self, key, current_value)
