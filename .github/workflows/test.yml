@@ -24,15 +24,15 @@ jobs:
       run: |
         pytest --cache-clear --junitxml ./test-report.xml --cov-report term-missing:skip-covered --cov src > pytest-coverage.txt
 
-        - name: Pytest coverage comment
-          if: always()
-          uses: MishaKav/pytest-coverage-comment@main
-          with:
-            pytest-coverage-path: ./pytest-coverage.txt
-            junitxml-path: ./test-report.xml
+    - name: Pytest coverage comment
+      if: always()
+      uses: MishaKav/pytest-coverage-comment@main
+      with:
+        pytest-coverage-path: ./pytest-coverage.txt
+        junitxml-path: ./test-report.xml
 
-        - name: Publish test report
-          if: always()
-          uses: elenakulgavaya/pytest-report-action@v1.3
-          with:
-            path: test-report.xml
+    - name: Publish test report
+      if: always()
+      uses: elenakulgavaya/pytest-report-action@v1.3
+      with:
+        path: test-report.xml
