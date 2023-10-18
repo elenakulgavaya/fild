@@ -1,30 +1,25 @@
-import unittest
-
 from tests.data import Base, ComposeBase, ComposeOptional, Mix, Optional
 
 
-class TestInstance(unittest.TestCase):
-    def test_field(self):
-        self.assertNotEqual(id(Base.StringField), id(Optional.OptString))
-
-    def test_required_dict(self):
-        self.assertNotEqual(id(ComposeBase.FirstBase),
-                            id(ComposeBase.SecondBase))
-
-    def test_optional_dict(self):
-        self.assertNotEqual(id(ComposeOptional.FirstOpt),
-                            id(ComposeOptional.OptionalOpt))
-
-    def test_embedded(self):
-        self.assertNotEqual(id(Mix.ReqBase), id(ComposeBase.FirstBase))
-
-    def test_field_array(self):
-        self.assertNotEqual(id(Mix.OptTypeArray), id(Mix.OptBaseArray))
-
-    def test_field_array_generator(self):
-        self.assertNotEqual(id(Mix.OptTypeArray.field),
-                            id(Mix.OptBaseArray.field))
+def test_field():
+    assert id(Base.StringField) != id(Optional.OptString)
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_required_dict():
+    assert id(ComposeBase.FirstBase) != id(ComposeBase.SecondBase)
+
+
+def test_optional_dict():
+    assert id(ComposeOptional.FirstOpt) != id(ComposeOptional.OptionalOpt)
+
+
+def test_embedded():
+    assert id(Mix.ReqBase) != id(ComposeBase.FirstBase)
+
+
+def test_field_array():
+    assert id(Mix.OptTypeArray) != id(Mix.OptBaseArray)
+
+
+def test_field_array_generator():
+    assert id(Mix.OptTypeArray.field) != id(Mix.OptBaseArray.field)

@@ -1,32 +1,27 @@
-import unittest
-
 from tests.data import Mix
 
 
-class TestRequiredParam(unittest.TestCase):
-    mix = Mix()
-    mix_full = Mix(is_full=True)
-
-    def test_generated_dict_is_required(self):
-        self.assertIs(self.mix_full.ReqOptional.required,
-                      Mix.ReqOptional.required)
-
-    def test_generated_embedded_dict_is_required(self):
-        self.assertIs(Mix.OptOptional.OptString.required,
-                      self.mix.OptOptional.OptString.required)
-
-    def test_generated_embedded_optional_dict_is_required(self):
-        self.assertIs(Mix.OptBase.IntField.required,
-                      self.mix_full.OptBase.IntField.required)
-
-    def test_generated_array_is_required(self):
-        self.assertIs(Mix.OptFullBaseArray.required,
-                      self.mix_full.OptFullBaseArray.required)
-
-    def test_generated_embedded_array_dict_is_required(self):
-        self.assertIs(Mix.OptBaseArray.field.StringField.required,
-                      self.mix_full.OptBaseArray[0].StringField.required)
+mix = Mix()
+mix_full = Mix(is_full=True)
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_generated_dict_is_required():
+    assert mix_full.ReqOptional.required is Mix.ReqOptional.required
+
+
+def test_generated_embedded_dict_is_required():
+    assert (Mix.OptOptional.OptString.required is
+            mix.OptOptional.OptString.required)
+
+
+def test_generated_embedded_optional_dict_is_required():
+    assert Mix.OptBase.IntField.required is mix_full.OptBase.IntField.required
+
+
+def test_generated_array_is_required():
+    assert Mix.OptFullBaseArray.required is mix_full.OptFullBaseArray.required
+
+
+def test_generated_embedded_array_dict_is_required():
+    assert (Mix.OptBaseArray.field.StringField.required is
+            mix_full.OptBaseArray[0].StringField.required)
