@@ -367,9 +367,3 @@ def normalize(actual, expected, keys=None):
                 initial[key] = normalize(value, expected.get(key), keys=keys)
 
     return initial
-
-
-if __name__ == '__main__':
-    import doctest
-
-    doctest.testmod()
