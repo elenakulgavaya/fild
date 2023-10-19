@@ -73,6 +73,23 @@ def filter_dict(function_or_value, dict_to_filter):
 
 
 def exclude_none_from_kwargs(kwargs):
+    """
+    Remove single None value
+      >>> exclude_none_from_kwargs({'a': None, 'b': 1234})
+      {'b': 1234}
+
+    Remove multiple None value
+      >>> exclude_none_from_kwargs({'a': None, 'b': 1234, 'c': None})
+      {'b': 1234}
+
+    Remove all None values
+      >>> exclude_none_from_kwargs({'a': None, 'c': None})
+      {}
+
+    Do nothing when there is no None value
+      >>> exclude_none_from_kwargs({'a': 123, 'b': 1234})
+      {'a': 123, 'b': 1234}
+    """
     return {k: v for k, v in kwargs.items() if v is not None}
 
 
@@ -93,8 +110,3 @@ def is_callable_with_strict_args(func, args_count=1):
 
     raise TypeError(f'Expected callable with {args_count} args. '
                     f'Got: "{func.__name__}" func with {argspec}')
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()

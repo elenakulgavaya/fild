@@ -1,7 +1,7 @@
 import random
 import string
 
-from fild.sdk.array import Array
+from fild.sdk.array import Array, Set
 from fild.sdk.dictionary import Dictionary
 from fild.sdk.field import Field
 
@@ -53,7 +53,9 @@ class Mix(Dictionary):
     ReqOptional = Optional(name='req_optional')
     OptOptional = Optional(name='opt_optional', required=False)
     ReqTypeArray = Array(TypeOne, name='req_type_array')
+    ReqTypeSet = Set(TypeOne, name='req_type_set')
     OptTypeArray = Array(TypeOne, name='opt_type_array', required=False)
+    OptTypeSet = Set(TypeOne, name='opt_base_set', required=False)
     NoneTypeArray = Array(AllowedNone, name='none_type_array', allow_none=True)
     ReqBaseArray = Array(Base, name='req_base_array')
     OptBaseArray = Array(Base, name='opt_base_array', required=False)

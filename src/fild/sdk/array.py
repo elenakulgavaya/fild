@@ -83,6 +83,20 @@ class Array(Field):
 
 
 class Set(Array):
+    def with_values(self, values):
+        if isinstance(values, (set, list)):
+            _values = set()
+
+            for value in values:
+                if not isinstance(value, self.field.__class__):
+                    value = self.field(is_full=False).with_values(value)
+                _values.add(value)
+            self._value = _values
+
+            return self
+
+        return super().with_values(values)
+
     @property
     def value(self):
         if self._value is None:

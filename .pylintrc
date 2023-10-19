@@ -3,8 +3,11 @@ init-hook='import sys; sys.path.append("./src")'
 ignore=LICENSE,
     pyproject.toml,
     README.md,
-    requirements.txt,
-    setup.cfg
+    requirements/,
+    pytest.ini,
+    setup.cfg,
+    pytest-coverage.txt,
+    test-report.xml
 ignore-paths=dist,
     fild.egg-info
 

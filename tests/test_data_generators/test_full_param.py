@@ -1,18 +1,11 @@
-import unittest
-
 from tests.data import Mix
 
 
-class TestFullParam(unittest.TestCase):
-    mix = Mix()
+def test_generated_array_is_full_false():
     mix_full = Mix(is_full=True)
-
-    def test_generated_array_is_full_false(self):
-        self.assertFalse(self.mix_full.OptBaseArray[0].is_full)
-
-    def test_generated_array_is_full_true(self):
-        self.assertTrue(self.mix.ReqFullBaseArray[0].is_full)
+    assert mix_full.OptBaseArray[0].is_full is False
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_generated_array_is_full_true():
+    mix = Mix()
+    assert mix.ReqFullBaseArray[0].is_full
