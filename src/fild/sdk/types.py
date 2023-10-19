@@ -158,7 +158,7 @@ class Raw(String):
         )
 
     def generate_value(self):
-        return fakeable.FAKER.pydict(10, True, str)
+        return fakeable.FAKER.pydict(10, True, value_types=(str,))
 
     def with_values(self, values):
         if self.overrided_values and isinstance(self._value, dict):
