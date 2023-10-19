@@ -22,7 +22,7 @@ def test_max_len_in_fake_attrs():
 
 def test_generate_float_i_len():
     value = generate_float(i_len=3)
-    assert len(str(value).split('.')[0]) <= 3
+    assert len(str(value).split('.', maxsplit=1)[0]) <= 3
 
 
 def test_generate_float_f_len():
@@ -39,4 +39,3 @@ def test_generate_float_fixed_f_len(monkeypatch):
     value = generate_float(fixed_f_len=True, f_len=2, i_len=0,
                            integer_allowed=False)
     assert len(str(value).split('.')[1]) == 2
-
