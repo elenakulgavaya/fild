@@ -3,8 +3,10 @@ import random
 
 from faker import Faker
 
+from fild.sdk.base_enum import BaseEnum
 
-class Fakeable:
+
+class Fakeable(BaseEnum):
     Address = 'address'
     AmPm = 'am_pm'
     AndroidToken = 'android_platform_token'
