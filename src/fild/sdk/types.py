@@ -3,6 +3,7 @@ import random
 
 
 from fild.sdk import fakeable, dates
+from fild.sdk.base_enum import BaseEnum
 from fild.sdk.field import Field
 from fild.process import dictionary
 
@@ -102,7 +103,7 @@ class String(Field):
         )
 
 
-class Enum(Field):
+class Enum(Field, BaseEnum):
     def __init__(self, name=None, required=True, allow_none=False,
                  default=None, exclude=None):
         self.save_kwargs(locals())
@@ -111,36 +112,6 @@ class Enum(Field):
             name=name, required=required, allow_none=allow_none,
             default=default
         )
-
-    @classmethod
-    def _attr_values_as_list(cls):
-        result = []
-
-        for attr_name in dir(cls):
-            if not attr_name.startswith('_'):
-                attr_value = getattr(cls, attr_name)
-
-                if (not callable(attr_value) and
-                        not isinstance(attr_value, property)):
-                    result.append(attr_value)
-
-        return result
-
-    @classmethod
-    def to_list(cls, exclude=()):
-        """
-        :param exclude: list of values to be excluded from result; if
-          not existent value passed, ValueError exception will be thrown
-        :return: list of all fields of class A(Enum) and its parents
-        """
-        result = cls._attr_values_as_list()
-        if type(exclude) not in (list, tuple):
-            exclude = (exclude,)
-
-        for item in exclude:
-            result.remove(item)
-
-        return result
 
     def generate_value(self):
         return random.choice(self.__class__.to_list(
