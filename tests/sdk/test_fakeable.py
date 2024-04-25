@@ -39,3 +39,21 @@ def test_generate_float_fixed_f_len(monkeypatch):
     value = generate_float(fixed_f_len=True, f_len=2, i_len=0,
                            integer_allowed=False)
     assert len(str(value).split('.')[1]) == 2
+
+
+def test_fakeable_to_list():
+    assert len(Fakeable.to_list()) == 81
+
+
+def test_fakeable_include():
+    assert Fakeable.AmPm in Fakeable.to_list()
+
+
+def test_fakeable_exclude():
+    assert len(Fakeable.to_list(exclude=[
+        Fakeable.AmPm, Fakeable.Address, Fakeable.CompanyEmail
+    ])) == 78
+
+
+def test_fakeable_exclude_value():
+    assert Fakeable.DateTime not in Fakeable.to_list(exclude=Fakeable.DateTime)
