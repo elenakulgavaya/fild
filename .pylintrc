@@ -35,6 +35,7 @@ max-bool-expr=5
 max-branches=12
 max-locals=15
 max-parents=7
+max-positional-arguments=10
 max-public-methods=20
 max-returns=6
 max-statements=50
