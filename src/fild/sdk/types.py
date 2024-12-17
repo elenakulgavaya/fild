@@ -1,6 +1,7 @@
 import decimal
 import random
 
+from dateutil import tz
 
 from fild.sdk import fakeable, dates
 from fild.sdk.base_enum import BaseEnum
@@ -147,10 +148,33 @@ class Uuid(Field):
         return fakeable.FAKER.uuid4()
 
 
-class DateTime(Field):
+class DateTime(String):
+    def __init__(self, name=None, required=True, allow_none=False, default=None,
+                 date_format=dates.Pattern.DATETIME_DELIM_T_WITH_ZONE_PRECISED):
+        self.save_kwargs(locals())
+        self.date_format = date_format
+        super().__init__(
+            name=name, required=required, allow_none=allow_none,
+            default=default
+        )
+
     def generate_value(self):
         return dates.generate_time()
 
     @property
     def value(self):
-        return dates.to_format(self._value)
+        if self._value and not isinstance(self._value, str):
+            return self._value.strftime(self.date_format)
+
+        return self._value
+
+    def to_format(self, date_format,  new_tz=None):
+        if self._value is None:
+            return None
+
+        from_zone = tz.tzutc()
+        to_zone = tz.gettz(new_tz)
+        local_time = self._value.replace(tzinfo=from_zone)
+        new_time = local_time.astimezone(to_zone)
+
+        return new_time.strftime(date_format)

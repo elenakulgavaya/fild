@@ -1,4 +1,9 @@
-# FILD
+# fild v 0.1.1
+
+![Downloads](https://img.shields.io/pypi/dm/fild.svg?style=flat)
+![Python Versions](https://img.shields.io/pypi/pyversions/fild.svg?style=flat)
+![License](https://img.shields.io/pypi/l/fild.svg?version=latest)
+[![Build Status](https://github.com/elenakulgavaya/fild/workflows/Tests/badge.svg)](https://github.com/elenakulgavaya/fild/actions)
 
 FILD is a library for contract testing. FILD allows to store descriptive 
 structure of the API and use it further for generating test data based on Faker.
