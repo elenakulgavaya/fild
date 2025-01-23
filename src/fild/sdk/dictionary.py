@@ -171,18 +171,23 @@ class Dictionary(Field):
         else:
             current_value = None
 
+        def needs_json_loads(current, update):
+            dict_needs_load = (isinstance(current, Dictionary) and
+                               not isinstance(update, dict))
+            list_needs_load = (isinstance(current, Array) and
+                               not isinstance(update, list))
+
+            return dict_needs_load or list_needs_load
+
         if (isinstance(current_value, Field) and
                 not isinstance(value, Field)):
-            if (isinstance(current_value, Dictionary) and
-                    not isinstance(value, dict)):
-                if (isinstance(current_value, Array) and
-                        not isinstance(value, list)):
-                    try:
-                        json.loads(value)
-                    except json.JSONDecodeError as ex:
-                        raise AttributeError(
-                            'Assigning entity to primitive'
-                        ) from ex
+            if needs_json_loads(current=current_value, update=value):
+                try:
+                    json.loads(value)
+                except json.JSONDecodeError as ex:
+                    raise AttributeError(
+                        'Assigning entity to primitive'
+                    ) from ex
 
             current_value.with_values(value)
             object.__setattr__(self, key, current_value)
