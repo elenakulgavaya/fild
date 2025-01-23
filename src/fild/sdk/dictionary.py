@@ -171,10 +171,17 @@ class Dictionary(Field):
         else:
             current_value = None
 
+        def needs_json_loads(current, update):
+            dict_needs_load = (isinstance(current, Dictionary) and
+                               not isinstance(update, dict))
+            list_needs_load = (isinstance(current, Array) and
+                               not isinstance(update, (list, set)))
+
+            return dict_needs_load or list_needs_load
+
         if (isinstance(current_value, Field) and
                 not isinstance(value, Field)):
-            if (isinstance(current_value, Dictionary) and
-                    not isinstance(value, dict)):
+            if needs_json_loads(current=current_value, update=value):
                 try:
                     json.loads(value)
                 except json.JSONDecodeError as ex:
