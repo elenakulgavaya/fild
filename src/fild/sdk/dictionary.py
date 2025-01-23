@@ -175,12 +175,14 @@ class Dictionary(Field):
                 not isinstance(value, Field)):
             if (isinstance(current_value, Dictionary) and
                     not isinstance(value, dict)):
-                try:
-                    json.loads(value)
-                except json.JSONDecodeError as ex:
-                    raise AttributeError(
-                        'Assigning entity to primitive'
-                    ) from ex
+                if (isinstance(current_value, Array) and
+                        not isinstance(value, list)):
+                    try:
+                        json.loads(value)
+                    except json.JSONDecodeError as ex:
+                        raise AttributeError(
+                            'Assigning entity to primitive'
+                        ) from ex
 
             current_value.with_values(value)
             object.__setattr__(self, key, current_value)
