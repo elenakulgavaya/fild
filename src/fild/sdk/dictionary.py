@@ -175,7 +175,7 @@ class Dictionary(Field):
             dict_needs_load = (isinstance(current, Dictionary) and
                                not isinstance(update, dict))
             list_needs_load = (isinstance(current, Array) and
-                               not isinstance(update, list))
+                               not isinstance(update, (list, set)))
 
             return dict_needs_load or list_needs_load
 
