@@ -1,6 +1,7 @@
 import decimal
 import random
 
+from datetime import datetime
 from dateutil import tz
 
 from fild.sdk import fakeable, dates
@@ -174,7 +175,12 @@ class DateTime(String):
 
         from_zone = tz.tzutc()
         to_zone = tz.gettz(new_tz)
-        local_time = self._value.replace(tzinfo=from_zone)
+        value = self._value
+
+        if isinstance(value, str):
+            value = datetime.strptime(value, self.date_format)
+
+        local_time = value.replace(tzinfo=from_zone)
         new_time = local_time.astimezone(to_zone)
 
         return new_time.strftime(date_format)
