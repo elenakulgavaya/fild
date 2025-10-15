@@ -4,13 +4,13 @@ ignore=LICENSE,
     pyproject.toml,
     README.md,
     requirements/,
-    docs/,
     pytest.ini,
     setup.cfg,
     pytest-coverage.txt,
     test-report.xml
 ignore-paths=dist,
-    fild.egg-info
+    fild.egg-info,
+    docs
 
 py-version=3.7
 suggestion-mode=yes
