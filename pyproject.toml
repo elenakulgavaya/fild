@@ -6,3 +6,13 @@ requires = [
     "pytz==2021.3",
 ]
 build-backend = "setuptools.build_meta:__legacy__"
+
+[project]
+name = "fild"
+authors = [{name="Elena Kulgavaya", email="elena.kulgavaya@gmail.com"}]
+dynamic = ["version", "description"]
+readme = "README.md"
+keywords = ["testing", "automation", "python", "pytest plugin"]
+homepage = "https://github.com/elenakulgavaya/fild"
+repository = "https://github.com/elenakulgavaya/fild"
+documentation = "https://fild.readthedocs.io/"

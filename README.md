@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/pypi/l/fild.svg?version=latest)
 [![Build Status](https://github.com/elenakulgavaya/fild/workflows/Tests/badge.svg)](https://github.com/elenakulgavaya/fild/actions)
 
-FILD is a library for contract testing. FILD allows to store descriptive 
+FILD is a lightweight Python library for automated contract testing. FILD allows to store descriptive 
 structure of the API and use it further for generating test data based on Faker.
 
 The basic type for usage is Field, any other types should inherit from.
@@ -59,3 +59,5 @@ or without parameters
 generated_customer = Customer()
 generated_full_customer = Customer(is_full=True)
 ```
+
+[Install from PyPI](https://pypi.org/project/fild/)
