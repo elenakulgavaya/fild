@@ -21,6 +21,7 @@ to describe the generation procedure.
 Library supports multi-level hierarchy with Arrays and Dictionaries.
 
 Library also provides some dict operating methods.
+
 | ``filter_dict``: allows to apply value/callable filter to dict by values
 | ``merge_with_updates``: merges two dicts with either overriding or only adding values to the target dictionary.
 | ``normalize``: sorts lists - both top level and embeded - to represent the desired order.
