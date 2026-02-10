@@ -183,6 +183,9 @@ class Dictionary(Field):
                 not isinstance(value, Field)):
             if needs_json_loads(current=current_value, update=value):
                 try:
+                    if isinstance(value, bytes):
+                        value = value.decode('utf-8')
+
                     json.loads(value)
                 except json.JSONDecodeError as ex:
                     raise AttributeError(
