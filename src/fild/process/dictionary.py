@@ -324,23 +324,31 @@ def normalize(actual, expected, keys=None):
     """
     keys = keys or []
 
-    def find_key(element):
+    def find_keys(element):
         if not isinstance(element, dict):
-            return None
+            return []
+
+        result = []
 
         for available_key in keys:
             if available_key in element:
-                return available_key
+                result.append(available_key)
 
-        return 'id'
+        return result or ['id']
 
-    def get_index(tar, elem, element_key='id'):
+    def get_index(tar, elem, el_keys=None):
+        el_keys = el_keys or ['id']
+
+        def get_combined_key(values_dict):
+            return '--'.join(f'{k}{values_dict.get(k)}' for k in el_keys)
+
         target = tar
         element = elem
 
         if isinstance(elem, dict):
-            target = [item.get(element_key) for item in tar]
-            element = elem.get(element_key)
+
+            target = [get_combined_key(item) for item in tar]
+            element = get_combined_key(elem)
 
         if element not in target:
             return len(target)
@@ -350,10 +358,10 @@ def normalize(actual, expected, keys=None):
     initial = copy.deepcopy(actual)
 
     if isinstance(initial, list) and expected is not None:
-        element_key = find_key(initial[0]) if initial else None
+        element_keys = find_keys(initial[0]) if initial else None
         initial = sorted(
             initial,
-            key=lambda x: get_index(expected, x, element_key=element_key)
+            key=lambda x: get_index(expected, x, el_keys=element_keys)
         )
         if len(initial) == len(expected):
             for num, _ in enumerate(initial):
