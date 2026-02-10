@@ -1,7 +1,7 @@
 FILD Documentation
 ===================================
 
-**FILD** (/lu'make/)  is a lightweight Python library for automated contract testing. FILD allows to store descriptive
+**FILD**  is a lightweight Python library for automated contract testing. FILD allows to store descriptive
 structure of the API and use it further for generating test data based on Faker.
 
 
