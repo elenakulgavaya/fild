@@ -1,6 +1,7 @@
 [build-system]
 requires = [
     "setuptools>=42",
+    "setuptools-scm",
     "wheel",
     "Faker==11.3.0",
     "pytz==2021.3",
@@ -33,6 +34,8 @@ where = ["src"]
 
 [tool.setuptools.package-dir]
 "" = "src"
+
+[tool.setuptools_scm]
 
 [project.urls]
 "Bug Tracker" = "https://github.com/elenakulgavaya/fild/issues"
