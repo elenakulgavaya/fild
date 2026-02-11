@@ -14,7 +14,6 @@ ignore-paths=dist,
     docs
 
 py-version=3.7
-suggestion-mode=yes
 
 [MESSAGES CONTROL]
 disable=missing-function-docstring,
