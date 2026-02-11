@@ -14,6 +14,7 @@ ignore-paths=dist,
     docs
 
 py-version=3.7
+suggestion-mode=yes
 
 [MESSAGES CONTROL]
 disable=missing-function-docstring,
@@ -41,6 +42,3 @@ max-public-methods=20
 max-returns=6
 max-statements=50
 min-public-methods=0
-
-[FORMAT]
-ignore-docstrings=yes

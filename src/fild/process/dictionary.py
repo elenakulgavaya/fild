@@ -283,7 +283,7 @@ def apply_modifier(initial_dict, modifier):
 
     return initial_copy
 
-
+# pylint: disable=line-too-long
 def normalize(actual, expected, keys=None):
     """
     Applies same structure as expected, based on id for ordered structures.
@@ -353,6 +353,7 @@ def normalize(actual, expected, keys=None):
       ...   keys=['data_source_name', 'cost'])
       [{'attempt_number': 0, 'cost': 280.333, 'data_source_name': 'azure_blob', 'data_transferred_bytes': 9046, 'job_id': '6858248'}, {'attempt_number': 0, 'cost': 280.333, 'data_source_name': '_all_datasources_', 'data_transferred_bytes': 9046, 'job_id': '6858248'}]
     """
+    # pylint: enable=line-too-long
     keys = keys or []
 
     def find_keys(element):
