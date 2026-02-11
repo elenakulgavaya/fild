@@ -131,8 +131,9 @@ def test_generate_datetime_type_trailing_zeroes():
 
 
 def test_generate_datetime_type_rstrip_trailing_zeroes():
-    expected = '2026-02-10T09:07:11.404000Z'
-    set_value = datetime.strptime(expected, '%Y-%m-%dT%H:%M:%S.%fZ')
+    initial = '2026-02-10T09:07:11.404000Z'
+    expected = '2026-02-10T09:07:11.404Z'
+    set_value = datetime.strptime(initial, '%Y-%m-%dT%H:%M:%S.%fZ')
     value = DateTime(rstrip_zeros=True).with_values(set_value).value
     assert value == expected
 
