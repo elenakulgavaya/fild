@@ -1,6 +1,8 @@
 import decimal
 import uuid
 
+from datetime import datetime
+
 from fild.sdk import (
     Bool, DateTime, Decimal, Enum, Float, Int, Raw, String, StringDecimal,
     Uuid
@@ -119,6 +121,20 @@ def test_raw_with_values_override():
 def test_generate_datetime_type():
     value = DateTime().value
     assert isinstance(value, str)
+
+
+def test_generate_datetime_type_trailing_zeroes():
+    expected = '2026-02-10T09:07:11.404000Z'
+    set_value = datetime.strptime(expected, '%Y-%m-%dT%H:%M:%S.%fZ')
+    value = DateTime().with_values(set_value).value
+    assert value == expected
+
+
+def test_generate_datetime_type_rstrip_trailing_zeroes():
+    expected = '2026-02-10T09:07:11.404000Z'
+    set_value = datetime.strptime(expected, '%Y-%m-%dT%H:%M:%S.%fZ')
+    value = DateTime(rstrip_zeros=True).with_values(set_value).value
+    assert value == expected
 
 
 def test_generate_uuid_type():
