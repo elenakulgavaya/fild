@@ -150,10 +150,13 @@ class Uuid(Field):
 
 
 class DateTime(String):
-    def __init__(self, name=None, required=True, allow_none=False, default=None,
-                 date_format=dates.Pattern.DATETIME_DELIM_T_WITH_ZONE_PRECISED):
+    def __init__(self, name=None, required=True, allow_none=False,
+                 default=None,
+                 date_format=dates.Pattern.DATETIME_DELIM_T_WITH_ZONE_PRECISED,
+                 rstrip_zeros=False):
         self.save_kwargs(locals())
         self.date_format = date_format
+        self.rstrip_zeros = rstrip_zeros
         super().__init__(
             name=name, required=required, allow_none=allow_none,
             default=default
@@ -165,11 +168,17 @@ class DateTime(String):
     @property
     def value(self):
         if self._value and not isinstance(self._value, str):
-            return self._value.strftime(self.date_format)
+            result = self._value.strftime(self.date_format)
+
+            if self.rstrip_zeros:
+                while '0Z' in result:
+                    result = result.replace('0Z', 'Z')
+
+            return result
 
         return self._value
 
-    def to_format(self, date_format,  new_tz=None):
+    def to_format(self, date_format, new_tz=None):
         if self._value is None:
             return None
 
