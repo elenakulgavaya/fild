@@ -323,10 +323,35 @@ def normalize(actual, expected, keys=None):
       {'a': [{'id': 'b0', 'b': [{'id': 4}, {'id': 3}]}, {'id': 'b1', 'b': [{'id': 1}, {'id': 2}]}]}
 
       >>> normalize(
-      ...   [{'attempt_number': 0, 'cost': 280.333, 'data_source_name': '_all_datasources_', 'data_transferred_bytes': 9046, 'job_id': '6858248'}, {'attempt_number': 0, 'cost': 280.333, 'data_source_name': 'azure_blob', 'data_transferred_bytes': 9046, 'job_id': '6858248'}],
-      ...   [{'attempt_number': 0, 'cost': 280.333, 'data_source_name': 'azure_blob', 'data_transferred_bytes': 9046, 'job_id': '6858248'}, {'attempt_number': 0, 'cost': 280.333, 'data_source_name': '_all_datasources_', 'data_transferred_bytes': 9046, 'job_id': '6858248'}],
+      ...   [{
+      ...       'attempt_number': 0,
+      ...       'cost': 280.333,
+      ...       'data_source_name':
+      ...       '_all_datasources_',
+      ...       'data_transferred_bytes': 9046,
+      ...       'job_id': '6858248'
+      ...   }, {
+      ...       'attempt_number': 0,
+      ...       'cost': 280.333,
+      ...       'data_source_name': 'azure_blob',
+      ...       'data_transferred_bytes': 9046,
+      ...       'job_id': '6858248'
+      ...   }],
+      ...   [{
+      ...       'attempt_number': 0,
+      ...       'cost': 280.333,
+      ...       'data_source_name': 'azure_blob',
+      ...       'data_transferred_bytes': 9046,
+      ...       'job_id': '6858248'
+      ...   }, {
+      ...       'attempt_number': 0,
+      ...       'cost': 280.333,
+      ...       'data_source_name': '_all_datasources_',
+      ...       'data_transferred_bytes': 9046,
+      ...       'job_id': '6858248'
+      ...   }],
       ...   keys=['data_source_name', 'cost'])
-      [{'attempt_number': 0, 'cost': 280.333, 'data_source_name': 'azure_blob', 'data_transferred_bytes': 9046, 'job_id': '6858248'}, {'attempt_number': 0, 'cost': 280.333, 'data_source_name': '_all_datasources_', 'data_transferred_bytes': 9046, 'job_id': '6858248'}]
+      [{'attempt_number': 0, 'cost': 280.333, 'data_source_name': 'azure_blob', 'data_transferred_bytes': 9046, 'job_id': '6858248'}, {'attempt_number': 0, 'cost': 280.333, 'data_source_name': '_all_datasources_', 'data_transferred_bytes': 9046, 'job_id': '6858248'}]  # pylint: disable=line-too-long
     """
     keys = keys or []
 
