@@ -7,6 +7,28 @@ FILD is a lightweight Python library for automated contract testing.
 FILD allows you to store a descriptive structure of the API and use it
 for generating test data based on Faker.
 
+
+What problem it solves
+--------
+
+
+Quick start
+--------
+
+
+Installation
+--------
+
+
+
+Examples
+--------
+
+
+
+Use cases
+--------
+
 The basic type for usage is ``Field``. Any other types should inherit from it.
 
 ``Field`` supports the description of the API parameter:
