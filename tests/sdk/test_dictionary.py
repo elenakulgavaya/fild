@@ -56,12 +56,27 @@ def test_dictionary_set_with_json():
         First = String(name='first')
 
     class OuterDict(Dictionary):
-        Dict = TempDict('dict')
+        Dict = TempDict(name='dict')
 
-    with pytest.raises(AttributeError, match='object has no attribute'):
-        OuterDict().with_values({
-            OuterDict.Dict.name: json.dumps({TempDict.First.name: 'test'})
-        })
+    outer_dict = OuterDict().with_values({
+        OuterDict.Dict.name: json.dumps({TempDict.First.name: 'test'})
+    })
+    assert outer_dict.value == {'dict': {'first': 'test'}}
+
+
+def test_dictionary_set_with_bytes():
+    class TempDict(Dictionary):
+        First = String(name='first')
+
+    class OuterDict(Dictionary):
+        Dict = TempDict(name='dict')
+
+    outer_dict = OuterDict().with_values({
+        OuterDict.Dict.name: json.dumps({
+            TempDict.First.name: 'test1'
+        }).encode('utf-8')
+    })
+    assert outer_dict.value == {'dict': {'first': 'test1'}}
 
 
 def test_dictionary_set_with_string():
@@ -69,7 +84,7 @@ def test_dictionary_set_with_string():
         First = String(name='first')
 
     class OuterDict(Dictionary):
-        Dict = TempDict('dict')
+        Dict = TempDict(name='dict')
 
     with pytest.raises(AttributeError, match='Assigning entity to primitive'):
         OuterDict().with_values({OuterDict.Dict.name: 'test'})
