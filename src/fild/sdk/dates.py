@@ -1,9 +1,10 @@
 import calendar
 import random
 
+from datetime import datetime, timezone
+
 import pytz
 
-from datetime import datetime, timezone
 
 DATE_TIME_PATTERN = '%Y-%m-%dT%H:%M:%SZ'
 
