@@ -1,6 +1,7 @@
 import calendar
-import datetime
 import random
+
+from datetime import datetime, timezone
 
 import pytz
 
@@ -18,11 +19,11 @@ class Pattern:
 
 
 def get_current_time_utc():
-    return datetime.datetime.utcnow()
+    return datetime.now(timezone.utc)
 
 
 def generate_time():
-    now = datetime.datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     return now.replace(
         day=random.randint(1, now.day),
@@ -35,7 +36,7 @@ def generate_time():
 def generate_date():
     time = generate_time()
 
-    return datetime.datetime.date(time)
+    return datetime.date(time)
 
 
 def to_format(date_time, pattern=Pattern.DATETIME_DELIM_T_WITH_ZONE):
@@ -47,7 +48,7 @@ def to_timestamp(date_time):
 
 
 def str_to_date(date_string, pattern=Pattern.DATETIME_DELIM_T_WITH_ZONE):
-    return datetime.datetime.strptime(date_string, pattern)
+    return datetime.strptime(date_string, pattern)
 
 
 def to_timezone(date_time, tz):

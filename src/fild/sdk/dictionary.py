@@ -186,7 +186,7 @@ class Dictionary(Field):
                     if isinstance(value, bytes):
                         value = value.decode('utf-8')
 
-                    json.loads(value)
+                    value = json.loads(value)
                 except json.JSONDecodeError as ex:
                     raise AttributeError(
                         'Assigning entity to primitive'
