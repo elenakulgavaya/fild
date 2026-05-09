@@ -10,7 +10,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fild"
-description = "Library to describe contracts and generate data"
+description = "[DEPRECATED] Use surety instead. Library to describe contracts and generate data"
 readme = "README.md"
 requires-python = ">=3.7"
 license = { text = "MIT" }
@@ -24,6 +24,7 @@ dependencies = [
     "pytz==2021.3",
 ]
 classifiers = [
+    "Development Status :: 7 - Inactive",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
