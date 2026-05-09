@@ -1,5 +1,6 @@
 import warnings
 
+# pylint: disable=wrong-import-position
 warnings.warn(
     "fild is deprecated and will no longer be maintained. "
     "Migrate to surety: pip install surety. "
